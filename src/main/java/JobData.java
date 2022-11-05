@@ -5,10 +5,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -25,7 +22,7 @@ public class JobData {
      * without duplicates, for a given column.
      *
      * @param field The column to retrieve values from
-     * @return List of all of the values of the given field
+     * @return List of all the values of the given field
      */
     public static ArrayList<String> findAll(String field) {
 
@@ -60,7 +57,6 @@ public class JobData {
     /**
      * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
-     *
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
@@ -99,7 +95,19 @@ public class JobData {
         loadData();
 
         // TODO - implement this method
-        return null;
+        ArrayList<HashMap<String, String>> job1 = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+            for (String column : row.keySet()){
+                String hValue = (row.get(column)).toLowerCase();
+                if (hValue.contains(value.toLowerCase())){
+                    if (!job1.contains(row))
+                        job1.add(row);
+                }
+
+            }
+        }
+        return job1;
     }
 
     /**
